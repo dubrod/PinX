@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="pinx" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="pinx" version="1.1">
+
+    <object class="PinXSet" table="pinx_set" extends="xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="description" dbtype="text" phptype="string" null="false" default="" />
+        <field key="username" dbtype="text" phptype="string" null="false" default="" />
+        <field key="userid" dbtype="integer" precision="5" attributes="unsigned" phptype="integer" null="false" default="0" />
+        <field key="rank" dbtype="integer" precision="5" attributes="unsigned" phptype="integer" null="false" default="0" />
+        <field key="published" dbtype="integer" precision="1" attributes="unsigned" phptype="integer" null="false" default="1" />
+        <composite alias="Item" class="PinXItem" local="id" foreign="set" cardinality="many" owner="local" />
+    </object>
+
+    <object class="PinXItem" table="pinx_items" extends="xPDOSimpleObject">
+        <field key="title" dbtype="text" phptype="string" null="false" default="" />
+        <field key="image" dbtype="text" phptype="string" null="false" default="" />
+        <field key="rank" dbtype="integer" precision="5" attributes="unsigned" phptype="integer" null="false" default="0" />
+        <field key="type" dbtype="integer" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
+        <field key="published" dbtype="integer" precision="1" attributes="unsigned" phptype="integer" null="false" default="1" />
+        <field key="set" dbtype="integer" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+        <aggregate alias="Set" class="PinXSet" local="set" foreign="id" cardinality="one" owner="foreign" />
+    </object>
+</model>
